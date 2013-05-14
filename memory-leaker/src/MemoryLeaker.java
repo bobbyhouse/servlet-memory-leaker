@@ -30,7 +30,7 @@ public class MemoryLeaker extends HttpServlet {
         super();
         this.leaky_message = "No message yet. Try POST-ing something. For example:" +
         		"curl -X POST http://localhost:8080/memory-leaker/MemoryLeaker " +
-        		"-d '{message: my favorite messages usually have something to do with tacos}'";
+        		"-d '{message: Loco Snowcones Forever!}'";
     }
 
 	/**
@@ -66,9 +66,13 @@ public class MemoryLeaker extends HttpServlet {
 		  }
 
 		// Turn the string into a JSON object and update leaky_message
-		// interning a string will put it in memory that will never be garbage collected
+		// interning a string will put it in memory that will never be garbage
+		// collected.
 		try {
 			JSONObject jsonObject = new JSONObject(jb.toString());
+			
+			// Old leaky_message can never be got back again and will not be
+			// garbage collected.
 		    leaky_message = jsonObject.getString("message");
 		    leaky_message.intern();
 		  } catch (ParseException e) {
