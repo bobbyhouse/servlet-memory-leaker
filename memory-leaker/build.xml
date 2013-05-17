@@ -56,7 +56,7 @@
             <classpath refid="memory-leaker.classpath"/>
         </javac>
     </target>
-    <target name="build-war">
+    <target depends="build" name="build-war">
         <mkdir dir="dist"/>
         <war destfile="dist/memory-leaker.war" update="true" needxmlfile='false'>
             <classes dir="build\classes"/>
